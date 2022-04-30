@@ -106,3 +106,14 @@
     height: 30px;
     width: auto;
 }
+
+/* ALERT STYLES */
+.alert-box{
+    position: relative;
+}
+.alert-box .alert-close{
+    position: absolute;
+    top: 0;
+    right: 8px;
+    cursor: pointer;
+}
