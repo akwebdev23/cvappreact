@@ -1,35 +1,22 @@
 
 import React, { useEffect, useState } from 'react';
 import CardsList from '../components/CardsList';
-import { useFetching } from '../hooks/useFetching';
+import { useFetchingCards } from '../hooks/useFetchingCards';
 import LoadingSpinner from '../components/assets/loadingspinner/LoadingSpinner';
-import EntityDataService from '../components/API/EntityDataService';
 import Card from '../components/Card';
 
 function Skills() {
-  const [skills, setSkills] = useState([]);
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState();
+  const [fetchProjects, isUploading, errorMessage, fetchedCard] = useFetchingCards('/skills', Card);
 
-  const [fetchSkills, isUploading, errorMessage] = useFetching(
-    async () => {
-      const [data, status] = await EntityDataService.get('/skills');
-      console.dir('fetchSkills');
-      const success = status ? setSkills(data): setSkills([]);
-      console.dir(data);
-      let cards = data.map(card => {
-        return {card, Component: Card};
-      });
-      setCards(cards);
-      console.dir('cards');
-      console.dir(cards);
-    }
-  )
   useEffect(()=>{
-    fetchSkills();
-    console.dir('USE EFFECT');
-    console.dir('cards');
-    console.dir(cards);
-  },[]);
+    if(!errorMessage){
+      setCards(fetchedCard);
+      console.dir(fetchedCard);
+    } else {
+      console.dir(errorMessage);
+    }
+  });
   return (
     <div className="container">
         <h1>Skills</h1>
@@ -39,5 +26,4 @@ function Skills() {
     </div>
   );
 }
-
 export default Skills;

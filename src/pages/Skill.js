@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { useFetching } from '../hooks/useFetching';
+import { useFetchingCards } from '../hooks/useFetchingCards';
 import LoadingSpinner from '../components/assets/loadingspinner/LoadingSpinner';
 import EntityDataService from '../components/API/EntityDataService';
 import Card from '../components/Card';
@@ -9,20 +9,20 @@ import { useParams } from 'react-router-dom';
 function Skill() {
   const [skill, setSkill] = useState({});
   const {id} = useParams();
-  const [fetchSkill, isUploading, errorMessage] = useFetching(
+  const [fetchSkill, isUploading, errorMessage] = useFetchingCards(
+    false,
+    false,
     async () => {
       const [data, status] = await EntityDataService.get('/skills/'+id);
-      console.dir('fetchSkill');
-      const success = status ? setSkill(data) : setSkill({});
-      console.dir(data);
-      console.dir(id);
+      status ? setSkill(data) : setSkill({});
     }
   )
   useEffect(()=>{
-    fetchSkill();
-    console.dir('USE EFFECT');
-    console.dir('skill');
-    console.dir(skill);
+    if(!errorMessage){
+      fetchSkill();
+    } else {
+      console.dir(errorMessage);
+    }
   },[]);
   return (
     <div className="container">
