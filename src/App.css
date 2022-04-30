@@ -30,6 +30,53 @@
 .card-header:hover{
     background-color: rgba(255, 255, 255, 0.103);
 }
+
+.main-content{
+    position: relative;
+    padding-top: 80px;
+}
+
+/* NAVBAR STYLES */
+
+.header{
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    backdrop-filter:blur(0.2rem);
+    border-bottom: 1px rgba(255, 255, 255, 0.15) solid;
+
+}
+.open.navbar{
+    background: rgba(0, 0, 0, 0.479);
+}
+.navbar-nav{
+    max-height: 30px;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.7s ease-out;
+}
+.open .navbar-nav{
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in;
+    padding-top: 0 !important;
+    padding-bottom: 10px !important;
+}
+.nav-burger-menu{
+    position: absolute;
+    bottom: 18px;
+    left: 10px;
+    transition: bottom 0.3s ease-out;
+}
+.open .nav-burger-menu{
+    bottom: 10px;
+    left: 10px;
+    transition: bottom 0.4s ease-out;
+}
+.nav-burger-menu img{
+    height: 30px;
+    width: auto;
+}
 .nav-link.hover-primary:hover{
     --bs-text-opacity: 1;
     color: rgba(var(--bs-primary-rgb),var(--bs-text-opacity))!important;
@@ -62,6 +109,9 @@
     --bs-text-opacity: 1;
     color: rgba(var(--bs-success-rgb),var(--bs-text-opacity))!important;
 }
+
+/* CARDS STYLES */
+
 .card-skill-level .btn{
     width: 30px;
     height: 20px;
@@ -79,35 +129,9 @@
 .open .card-open-state::after{
     transform: rotate(270deg);
 }
-.navbar-nav{
-    max-height: 30px;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out, padding 0.7s ease-out;
-}
-.open .navbar-nav{
-    max-height: 1000px;
-    overflow: hidden;
-    transition: max-height 0.5s ease-in;
-    padding-top: 0 !important;
-    padding-bottom: 10px !important;
-}
-.nav-burger-menu{
-    position: absolute;
-    bottom: 20px;
-    left: calc(50% - 15px);
-    transition: bottom 0.3s ease-out;
-}
-.open .nav-burger-menu{
-    bottom: -20px;
-    left: calc(50% - 15px);
-    transition: bottom 0.4s ease-out;
-}
-.nav-burger-menu img{
-    height: 30px;
-    width: auto;
-}
 
 /* ALERT STYLES */
+
 .alert-box{
     position: relative;
 }
