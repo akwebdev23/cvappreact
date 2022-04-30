@@ -14,7 +14,7 @@ function Level({ownLevel}) {
     }
     return (
         <div className='card-skill-level d-flex align-items-center'>
-            <div className='font-wheight-normal mr-2 text-light'>level</div>
+            <div className='font-wheight-normal mr-2'>level</div>
             {levels.map((level)=>
                 <div 
                     title={level.name} 

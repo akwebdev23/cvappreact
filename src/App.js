@@ -16,8 +16,10 @@ function App() {
   })
   return (
     <BrowserRouter>
-      <Navbar mobile={mobile}/>
-      <AppRouter/>
+      <div className="header">
+        <Navbar mobile={mobile}/>
+      </div>
+      <div className="main-content"><AppRouter/></div>
     </BrowserRouter>
   );
 }
