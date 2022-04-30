@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export const useToggleClass = (className, defaultState, elements) => {
     defaultState = defaultState ? className : '';
@@ -9,7 +9,7 @@ export const useToggleClass = (className, defaultState, elements) => {
         if(elements){
             elements.forEach(element => {
                 if(event.target.classList.contains(element) 
-                    || event.target.localName == element)
+                    || event.target.localName === element)
                     stop = true;
             });
         }
@@ -18,8 +18,6 @@ export const useToggleClass = (className, defaultState, elements) => {
         console.dir(toggleClass);
         console.dir(className);
         console.dir(stop);
-
-
     }
     return [toggleClass, openCloseHandler];
 }
