@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import CardsList from '../components/CardsList';
-import { useFetching } from '../hooks/useFetching';
+import { useFetchingCards } from '../hooks/useFetchingCards';
 import LoadingSpinner from '../components/assets/loadingspinner/LoadingSpinner';
 import EntityDataService from '../components/API/EntityDataService';
 import Card from '../components/Card';
@@ -10,22 +9,20 @@ import { useParams } from 'react-router-dom';
 function Project() {
   const [project, setProject] = useState({});
   const {id} = useParams();
-  const [fetchProject, isUploading, errorMessage] = useFetching(
+  const [fetchProject, isUploading, errorMessage] = useFetchingCards(
+    false,
+    false,
     async () => {
       const [data, status] = await EntityDataService.get('/projects/'+id);
-      console.dir('fetchProject');
-
-      const success = status ? setProject(data) : setProject({});
-      console.dir(data);
-      console.dir(id);
-      
+      status ? setProject(data) : setProject({});
     }
   )
   useEffect(()=>{
-    fetchProject();
-    console.dir('USE EFFECT');
-    console.dir('skill');
-    console.dir(project);
+    if(!errorMessage){
+      fetchProject();
+    } else {
+      console.dir(errorMessage);
+    }
   },[]);
   return (
     <div className="container">
