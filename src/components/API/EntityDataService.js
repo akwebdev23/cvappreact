@@ -4,7 +4,7 @@ import axios from "axios";
 export default class EntityDataService{
     static async get(url){
         const response = await axios.get(API_HOST+url);
-        return response.data.status == 'error' 
+        return response.data.status === 'error' 
             ? [response.data, false]
             : [response.data.data, true];
     };
@@ -13,7 +13,7 @@ export default class EntityDataService{
                 API_HOST+url, data,
                 {headers: {'Content-Type' : 'multipart/form-data'}}
             );
-        return response.data.status == 'error' 
+        return response.data.status === 'error' 
             ? [response.data, false]
             : [response.data.data, true];
     };
