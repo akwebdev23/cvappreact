@@ -1,23 +1,30 @@
 import { useState } from 'react';
 
-export const useToggleClass = (className, defaultState, elements) => {
-    defaultState = defaultState ? className : '';
-    const [toggleClass, setToggleClass] = useState(defaultState);
+export const useToggleClass = (className, actionClasses,  stoplistClasses, defState) => {
+    const [toggleClass, setToggleClass] = useState(defState ? className : '');
     const openCloseHandler = (event) => {
         console.dir('asd');
-        let stop = false;
-        if(elements){
-            elements.forEach(element => {
+        let action = true;
+        if(stoplistClasses){
+            stoplistClasses.forEach(element => {
                 if(event.target.classList.contains(element) 
                     || event.target.localName === element)
-                    stop = true;
+                    action = false;
             });
         }
-        if(stop)
+        if(actionClasses){
+            actionClasses.forEach(element => {
+                if(event.target.classList.contains(element) 
+                    || event.target.localName === element)
+                    action = true;
+            });
+        }
+        if(action)
             !toggleClass ? setToggleClass(className) : setToggleClass('');
+            
         console.dir(toggleClass);
         console.dir(className);
-        console.dir(stop);
+        console.dir(action);
     }
     return [toggleClass, openCloseHandler];
 }
