@@ -2,6 +2,7 @@
 .project-icon img{
     max-height: 80px;
 }
+
 .footer-card-icon img{
     max-height: 40px;
     padding: 0 10px;
@@ -45,43 +46,99 @@
     width: 100%;
     backdrop-filter:blur(0.2rem);
     border-bottom: 1px rgba(255, 255, 255, 0.15) solid;
-
 }
-.open.navbar{
-    background: rgba(0, 0, 0, 0.479);
+.navbar-box{
+    position: relative;
+}
+.mobile .open.navbar, 
+.open-auth.navbar{
+    background-color: rgba(0, 0, 0, 0.400);
+    transition: background-color 1s ease-out;
 }
 .navbar-nav{
     max-height: 30px;
     overflow: hidden;
+    opacity: 1;
     transition: max-height 0.4s ease-out, padding 0.7s ease-out;
+}
+.mobile .navbar-nav{
+    max-height: 0px;
 }
 .open .navbar-nav{
     max-height: 1000px;
     overflow: hidden;
-    transition: max-height 0.5s ease-in;
+    opacity: 1;
+    transition: max-height 0.5s ease-in, padding 0.7s ease-out;
     padding-top: 0 !important;
     padding-bottom: 10px !important;
 }
+.open-auth .navbar-nav{
+    padding-top: 0 !important;
+    padding-bottom: 0px !important;
+}
+.open .navbar-nav{
+    padding-top: 0 !important;
+    padding-bottom: 10px !important;
+}
+.open-auth .nav-logout-popup .logout-form .btn{
+    opacity: 1;
+    z-index: 100;
+    transition: opacity 0.7s linear;
+}
+.nav-logout-popup .logout-form .btn{
+    opacity: 0;
+    z-index: -100;
+    transition: opacity 0.5s linear;
+}
 .nav-burger-menu{
     position: absolute;
-    bottom: 18px;
-    left: 10px;
-    transition: bottom 0.3s ease-out;
+    bottom: 0px;
+    left:11px;
 }
 .open .nav-burger-menu{
-    bottom: 10px;
-    left: 10px;
-    transition: bottom 0.4s ease-out;
+    bottom: 0px;
+    left:11px;
 }
-.nav-burger-menu img{
+.nav-login{
+    position: absolute;
+    bottom: 0px;
+    right: 6px;
+    cursor: pointer;
+}
+.open-auth .nav-login-user_name{
+    transition: opacity 0.3s ease-in;
+    z-index: -100;
+    opacity: 0;
+}
+.nav-login-user_name{
+    opacity: 1;
+    transition: opacity 1s ease-out;
+    margin-bottom: 2.6px;
+}
+.nav-login-popup, 
+.nav-logout-popup{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s ease-out;
+}
+.open-auth .nav-login-popup, 
+.open-auth .nav-logout-popup{
+    max-height: 1000px;
+    transition: max-height 0.5s ease-out;
+}
+.nav-burger-menu img, .nav-login img{
     height: 30px;
     width: auto;
+}
+.text-primary-trans{
+    --bs-text-opacity: 1;
+    color: #e83284c4!important; 
 }
 .nav-link.hover-primary:hover{
     --bs-text-opacity: 1;
     color: rgba(var(--bs-primary-rgb),var(--bs-text-opacity))!important;
 }
-.nav-link.hover-prim:hover{
+.nav-link.hover-primary-trans:hover{
     --bs-text-opacity: 1;
     color: #e83284c4!important;
 }
@@ -93,22 +150,7 @@
     --bs-text-opacity: 1;
     color: rgba(var(--bs-success-rgb),var(--bs-text-opacity))!important;
 }
-.nav-link.hover-primary:focus{
-    --bs-text-opacity: 1;
-    color: rgba(var(--bs-primary-rgb),var(--bs-text-opacity))!important;
-}
-.nav-link.hover-prim:focus{
-    --bs-text-opacity: 1;
-    color: #e83284c4!important;
-}
-.nav-link.hover-info:focus{
-    --bs-text-opacity: 1;
-    color: rgba(var(--bs-info-rgb),var(--bs-text-opacity))!important;
-}
-.nav-link.hover-success:focus{
-    --bs-text-opacity: 1;
-    color: rgba(var(--bs-success-rgb),var(--bs-text-opacity))!important;
-}
+
 
 /* CARDS STYLES */
 
@@ -141,3 +183,7 @@
     right: 8px;
     cursor: pointer;
 }
+/* 
+.alert-text{
+    border-bottom: 1px solid rgba(255,255,255,.2);
+} */
