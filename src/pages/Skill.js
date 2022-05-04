@@ -7,27 +7,31 @@ import Card from '../components/Card';
 import { useParams } from 'react-router-dom';
 
 function Skill() {
+  const [loading, setLoading] = useState(true);
   const [skill, setSkill] = useState({});
   const {id} = useParams();
-  const [fetchSkill, isUploading, errorMessage] = useFetchingCards(
+  const {fetchHandler, isLoading, errorMessage} = useFetchingCards(
     false,
     false,
     async () => {
-      const [data, status] = await EntityDataService.get('/skills/'+id);
+      const [data, status] = await EntityDataService.get('/skills/one/'+id);
       status ? setSkill(data) : setSkill({});
     }
   )
   useEffect(()=>{
-    if(!errorMessage){
-      fetchSkill();
-    } else {
+    fetchHandler();
+
+    if(errorMessage)
       console.dir(errorMessage);
-    }
-  },[]);
+
+    if(!isLoading)
+      setLoading(false);
+      
+  },[isLoading]);
   return (
-    <div className="container">
-        <h1>Skill</h1>
-        {isUploading 
+    <div className="skill">
+        <h1 className='mb-0 mb-sm-2'>Skill</h1>
+        {loading 
           ? <LoadingSpinner />
           : <Card title={'Skill'} classTitle={'skill'} card={skill} open={true}/>}
         

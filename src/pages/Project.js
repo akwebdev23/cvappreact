@@ -7,27 +7,31 @@ import Card from '../components/Card';
 import { useParams } from 'react-router-dom';
 
 function Project() {
+  const [loading, setLoading] = useState(true);
   const [project, setProject] = useState({});
   const {id} = useParams();
-  const [fetchProject, isUploading, errorMessage] = useFetchingCards(
+  const {fetchHandler, isLoading, errorMessage} = useFetchingCards(
     false,
     false,
     async () => {
-      const [data, status] = await EntityDataService.get('/projects/'+id);
+      const [data, status] = await EntityDataService.get('/projects/one/'+id);
       status ? setProject(data) : setProject({});
     }
   )
   useEffect(()=>{
-    if(!errorMessage){
-      fetchProject();
-    } else {
+    fetchHandler();
+
+    if(errorMessage)
       console.dir(errorMessage);
-    }
-  },[]);
+
+    if(!isLoading)
+      setLoading(false);
+      
+  },[isLoading]);
   return (
-    <div className="container">
-        <h1>Project</h1>
-        {isUploading 
+    <div className="project">
+        <h1 className='mb-0 mb-sm-2'>Project</h1>
+        {loading 
           ? <LoadingSpinner />
           : <Card card={project} classTitle={'project'} open={true}/>}
     </div>

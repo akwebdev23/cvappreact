@@ -6,21 +6,30 @@ import LoadingSpinner from '../components/assets/loadingspinner/LoadingSpinner';
 import Card from '../components/Card';
 
 function Projects() {
+  const [loading, setLoading] = useState(true);
   const [cards, setCards] = useState();
-  const [fetchProjects, isUploading, errorMessage, fetchedCard] = useFetchingCards('/projects', Card);
+  
+  const {isLoading, errorMessage, fetchedCards} = useFetchingCards('/projects', Card);
   
   useEffect(()=>{
-    if(!errorMessage){
-      setCards(fetchedCard);
-      console.dir(fetchedCard);
-    } else {
+    console.dir('fetchedCards');
+    console.dir(fetchedCards);
+    console.dir(isLoading);
+    
+    setCards(fetchedCards);
+
+    if(errorMessage)
       console.dir(errorMessage);
-    }
-  });
+
+    if(!isLoading)
+      setLoading(false);
+
+  }, [fetchedCards]);
+  
   return (
-    <div className="container">
-        <h1>Projects</h1>
-        {isUploading 
+    <div className="projects">
+        <h1 className='mb-0 mb-sm-2'>Projects</h1>
+        {loading 
           ? <LoadingSpinner />
           : <CardsList title={'Projects'} classTitle={'project'} cards={cards}/>}
     </div>
