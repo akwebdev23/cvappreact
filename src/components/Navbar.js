@@ -1,18 +1,22 @@
 
-import React from 'react';
+import userEvent from '@testing-library/user-event';
+import React, {useContext} from 'react';
 import {NavLink} from 'react-router-dom';
 import { useToggleClass } from '../hooks/useToggleClass';
+import LoginForm from '../pages/LoginFrom';
 import { API_UPLOAD } from '../utils/consts';
+import AuthComponent from './AuthComponent'
+import { AppContext } from '../hooks/AppContext';
 
-function Navbar({mobile}) {
-    const [toggleClass,  openCloseHandler] = useToggleClass('open', false, ['navbar', 'nav-burger-menu', 'navbar-nav', 'img']);
+function Navbar({mobile, nav: [navToggleClass, navOpenCloseHandler], auth: [authToggleClass, authOpenCloseHandler]}) {
+    const [{user, setUser}] = useContext(AppContext);
+
     return (
-        <nav className={toggleClass+' navbar navbar-expand-sm bg-muted pb-sm-2 pb-4 container'} 
-                onClick={mobile ? openCloseHandler : ()=>false}>
-            <div className='navbar-box col-12'>
+        <nav className={navToggleClass+' navbar navbar-expand-sm bg-muted '+authToggleClass}>
+            <div className='navbar-box col-12 container d-sm-flex'>
                 {mobile ? 
-                    <div className='nav-burger-menu'>
-                        <img className='nav-burger-menu-img' src={API_UPLOAD+'assets/icons/burger-menu-primary.png'}/>
+                    <div onClick={mobile ? navOpenCloseHandler : ()=>false} className='nav-burger-menu'>
+                        <img className='nav-burger-menu-img' src={'/icons/burger-menu-primary.png'}/>
                     </div>
                     :''
                 }
@@ -21,18 +25,57 @@ function Navbar({mobile}) {
                         d-flex flex-sm-row flex-column 
                         justify-content-between align-items-center`}>
                     <li className="nav-item">
-                        <NavLink className="nav-link hover-prim" to="/">Main</NavLink>
+                        <NavLink 
+                            className={({isActive})=>
+                                (isActive 
+                                    ? "nav-link text-primary-trans" 
+                                    : "nav-link")+" hover-primary-trans"}
+                            to="/"
+                        >
+                            Main
+                        </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink className="nav-link hover-primary" to="/skills">Skills</NavLink>
+                        <NavLink 
+                            className={({isActive})=>
+                                (isActive 
+                                    ? "nav-link text-info" 
+                                    : "nav-link")+" hover-info"}
+                            to="/skills"
+                        >
+                            Skills
+                        </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink className="nav-link hover-info" to="/experience">Experience</NavLink>
+                        <NavLink 
+                            className={({isActive})=>
+                                (isActive 
+                                    ? "nav-link text-success" 
+                                    : "nav-link")+" hover-success"}
+                            to="/experience"
+                        >
+                            Experience
+                        </NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink className="nav-link hover-success" to="/contacts">Contacts</NavLink>
+                        <NavLink 
+                            className={({isActive})=>
+                                (isActive 
+                                    ? "nav-link text-primary" 
+                                    : "nav-link")+" hover-primary"}
+                            to="/contacts"
+                        >
+                            Contacts
+                        </NavLink>
                     </li>
                 </ul>
+                <div className={user.auth ? "mr-4 auth ml-auto" : "auth ml-auto"}>
+                    <AuthComponent popup={true}/>
+                </div>
+                <div className='nav-login d-flex align-items-center' onClick={authOpenCloseHandler}>
+                    <span className='nav-login-user_name pr-4 '>{user?.name}</span>
+                    <img className='nav-login' src={'/icons/login.png'}/>
+                </div>
             </div>
         </nav>
         );
