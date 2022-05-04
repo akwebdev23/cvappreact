@@ -2,17 +2,18 @@
 import React from 'react';
 
 function CheckboxList(props) {
+  console.dir(props.items);
   return (
     <fieldset className='from-group mb-2'>
         <legend>{props.title}</legend>
         {props.items?.length 
-        ? props.items.map((item) =>  
-            <div key={item.id} className='form-check'><input
+        ? props.items.map((item, index) =>  
+            <div key={index} className='form-check'><input
               id='flexCheckDefault'
               className='form-check-input'
               type='checkbox'
-              key={item.id}
-              name='item_id[]'
+              key={index}
+              name={props.title+'[]'}
               value={item.id}/>{item.name}</div>
           ) 
         : ''}

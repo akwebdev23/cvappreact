@@ -11,7 +11,7 @@ import LinksList from './LinksList';
 function CardFooter({title, classTitle, card}) {
     if(classTitle == 'skill'){
         return (
-            <div className='card-footer'>
+            <div className='card-footer px-2 px-sm-2'>
                 <h5 className="card-title mb-0">Связанные проекты</h5>
                 <div className='d-flex'>
                     {card?.projects.map(
@@ -27,7 +27,7 @@ function CardFooter({title, classTitle, card}) {
           );
     } else {
         return (
-            <div className='card-footer'>
+            <div className='card-footer px-2 px-sm-3'>
                 <h5 className="card-title">Стек технологий</h5>
                 <div className='d-flex'>
                     {card?.skills.map(
