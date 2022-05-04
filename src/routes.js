@@ -18,7 +18,7 @@ import {
     HOME_ROUTE} from "./utils/consts"
 
 export const adminRoutes = [
-    {path : ADMIN_ROUTE, Component: Admin},
+    {path : ADMIN_ROUTE, Component: Admin, ROLES: ['ROLE_ADMIN']},
 ]
 export const publicRoutes = [
     {path : HOME_ROUTE, Component: Home},
