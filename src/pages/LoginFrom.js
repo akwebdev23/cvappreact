@@ -6,7 +6,7 @@ import EntityDataService from '../components/API/EntityDataService';
 import { API_HOST, REGISTRATION_ROUTE, LOGIN_ROUTE } from '../utils/consts';
 import Alert from '../components/assets/alert/Alert';
 import UserService from '../components/API/UserService';
-import {Navigate, useHref, useNavigate} from 'react-router-dom';
+import {Navigate, useHref, useNavigate, Link} from 'react-router-dom';
 import LoadingSpinner from '../components/assets/loadingspinner/LoadingSpinner';
 import { AppContext } from '../hooks/AppContext.js';
 import LoadingSpinnerCircle from '../components/assets/loadingspinnerCircle/LoadingSpinnerCircle';
@@ -63,13 +63,16 @@ function LoginForm({popup}) {
   else
     return (
       <div className="login-form">
-        {alertData?.show ? <Alert messages={alertData.messages} color={alertData.color}/> : ''}
+        {alertData?.show ? <Alert alertData={alertData} setAlertData={setAlertData} messages={alertData.messages} color={alertData.color}/>:''}
         <div className='login-form_box'>
           <form onSubmit={loginSubmit} method='POST' className='login-form'>
             <input onChange={onChangeHandler} value={userData.email ? userData.email : ''} className='p-1 px-2 form-control my-2' placeholder='Введите email' type="text" name="email" required/>
             <input onChange={onChangeHandler} value={userData.password ? userData.password : ''} className='p-1 px-2 form-control my-2' placeholder='Введите пароль' type="password" name="password" required/>
-            <div className='d-flex'>
-              <input className={'btn btn-outline-light px-2 mx-auto mr-sm-auto ml-sm-0 '+ (popup ? 'btn-sm' : '') } value="Войти" type="submit" name="submit" required/>
+            <div className='d-flex justify-content-center justify-content-sm-end'>
+              <input className={'btn btn-outline-light px-2 mr-1 '+ (popup ? 'btn-sm' : '') } value="Войти" type="submit" name="submit" required/>
+              <Link to={'/registration'} className={'btn btn-outline-light px-2 '+ (popup ? 'btn-sm mr-sm-auto' : 'mr-auto') }>
+                Регистрация
+              </Link>
             </div>
           </form>
         </div>

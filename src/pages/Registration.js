@@ -41,7 +41,8 @@ function Registration(unexpectedAlertData) {
   return (
     <div className="registration">
         <h1>Регистрация</h1>
-        {alertData?.show ? <Alert messages={alertData.messages} color={alertData.color} callback={alertCloseHandler}/> : ''}
+        {alertData?.show ? <Alert alertData={alertData} setAlertData={setAlertData} messages={alertData.messages} color={alertData.color}/>:''}
+
         <div className='registration-form_box'>
           <form onSubmit={registrationSubmit} method='POST' className='registration-form'>
             <input onChange={onChangeHandler} value={userData.email ? userData.email : ''} className='form-control my-2' placeholder='Введите email' type="text" name="email" required/>

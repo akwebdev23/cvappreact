@@ -1,24 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import './styles.css';
 
-function Alert({messages, color, sticky, callback, show}) {
+function Alert({messages, color, sticky, callback, setAlertData, alertData: {show}}) {
     const [close, setClose] = useState(false);
-    useEffect(()=>{
-        if(show)
-            setClose(false);        
-    }, [messages])
-    console.dir(messages);
+
     const closeHandler = () => {
         if(callback){
             callback();
             setClose(true);
+            setAlertData({show: false});
         }
         else
             setClose(true);
+            setAlertData({show: false});
     }
-    if(!close )
+    if(show)
         return (
-            <div className={'alert-box'+(sticky ? ' sticky' : '')} style={{top: sticky ? (window.scrollY + 65) + 'px' : '0px', right: '0'}}>
+            <div className={'alert-box'+(sticky ? ' sticky' : '')} style={{top: sticky ? (window.scrollY + (window.offsetWidth > 572 ? 65 : 100)) + 'px' : '0px', right: '0'}}>
                 <div className={'py-2 alert alert-'+color}>
                     {messages instanceof Array ? 
                         messages.map((message, index)=>
