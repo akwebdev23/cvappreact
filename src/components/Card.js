@@ -25,13 +25,13 @@ function Card({title, classTitle, card, open}) {
 						</div>
 						: <Level ownLevel={card?.level}/>}
 				</div>
-				<div className={'card-body d-flex flex-sm-row flex-column align-items-center p-0 '+toggleClass}>
-					<div className='card-image_content col-12 col-sm-2 p-3'>
+				<div className={'card-body d-flex flex-column align-items-center p-0 '+toggleClass}>
+					<div className='card-image_content col-12 px-3 pt-2'>
 						<div className='img-fluid project-icon text-center'>
 							<img alt={card.name+'_icon'} src={API_UPLOAD+card.icon} className='img-fluid'/>
 						</div>
 					</div>
-					<div className="card-body-text_content col-12 col-sm-10 py-2 px-2 px-sm-3 pt-0 pt-sm-2 pl-sm-0">
+					<div className="card-body-text_content col-12 py-2 px-2 px-sm-3 pt-0 pt-sm-2 pl-sm-0">
 						<p className="card-text">
 							{card.description}
 						</p>
