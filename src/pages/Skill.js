@@ -30,7 +30,7 @@ function Skill() {
   },[isLoading]);
   return (
     <div className="skill">
-        <h1 className='mb-0 mb-sm-2'>Skill</h1>
+        <h1 className='mb-1 mb-sm-2'>Skill</h1>
         {loading 
           ? <LoadingSpinner />
           : <Card title={'Skill'} classTitle={'skill'} card={skill} open={true}/>}

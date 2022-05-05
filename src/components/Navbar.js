@@ -13,7 +13,7 @@ function Navbar({mobile, nav: [navToggleClass, navOpenCloseHandler], auth: [auth
 
     return (
         <nav className={navToggleClass+' navbar navbar-expand-sm bg-muted '+authToggleClass}>
-            <div className='navbar-box col-12 container d-sm-flex'>
+            <div className='navbar-box px-0 container d-sm-flex'>
                 {mobile ? 
                     <div onClick={mobile ? navOpenCloseHandler : ()=>false} className='nav-burger-menu'>
                         <img className='nav-burger-menu-img' src={'/icons/burger-menu-primary.png'}/>
