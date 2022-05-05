@@ -14,6 +14,16 @@ function Admin() {
   const [links, setLinks] = useState([]);
   const [linkTypes, setLinkTypes] = useState([]);
   const [alertData, setAlertData] = useState({});
+  const removeHandler = async ([url, func]) =>{
+    console.dir(url);
+    const [data, status] = await EntityDataService.get(url);
+    console.dir(data);
+
+    func();
+    if(!status) 
+      setAlertData({messages: data.message, color: 'danger', show: true})
+  }
+
 
   useEffect(()=>{
     fetchSkillLevels();
@@ -21,7 +31,7 @@ function Admin() {
     fetchProjects();
     fetchLinks();
     fetchLinkTypes();
-  },[alertData]);
+  },[]);
   async function fetchSkillLevels(){
     const [data, status] = await EntityDataService.get('/skills/levels/all');
     console.dir(data);
@@ -47,13 +57,16 @@ function Admin() {
     console.dir(data);
     const success = status ? setLinkTypes(data): setLinkTypes([]);
   }
-  
   async function skillSubmit(event){
     event.preventDefault();
     let formData = new FormData(event.target);
     console.dir(formData);
     const [data, status] = await EntityDataService.create('/skills/create', formData);
-    const success = status ? false : setSkills([...skills, data]);
+    !status 
+      ? setAlertData({messages: data.message, color: 'danger', show: true})
+      : setAlertData({messages: 'Навык '+data.name+' успешно добавлен или отредактирован.', color: 'success', show: true});
+    fetchSkills();
+    console.dir('skill');
     console.dir(status);
     console.dir(data);
   }
@@ -62,21 +75,27 @@ function Admin() {
     let formData = new FormData(event.target);
     console.dir(formData);
     const [data, status] = await EntityDataService.create('/links/create', formData);
-    const success = status ? false : setLinks([...links, data]);
-    setAlertData({messages: 'Ссылка '+data.name+' успешно добавлена или отредактирована.', color: 'success', show: true});
+    !status 
+      ? setAlertData({messages: data.message, color: 'danger', show: true})
+      : setAlertData({messages: 'Ссылка '+data.name+' успешно добавлена или отредактирована.', color: 'success', show: true});
+    fetchLinks();
+    console.dir('links');
+    console.dir(status);
+    console.dir(data);
 
     console.dir(links);
     console.dir(alertData);
-    console.dir(status);
-    console.dir(data);
   }
   async function linkTypeSubmit(event){
     event.preventDefault();
     let formData = new FormData(event.target);
     console.dir(formData);
     const [data, status] = await EntityDataService.create('/linktypes/create/new', formData);
-    const success = status ? false : setLinkTypes([...linkTypes, data]);
-
+    !status 
+      ? setAlertData({messages: data, color: 'danger', show: true})
+      : setAlertData({messages: 'Тип ссылки '+data.name+' успешно добавлен или отредактирован.', color: 'success', show: true});
+    fetchLinkTypes();
+    console.dir('linkTypeSubmit');
     console.dir(status);
     console.dir(data);
   }
@@ -91,10 +110,14 @@ function Admin() {
         'Content-Type' : 'multipart/form-data'
       }
     }).then(response => {
-      const success = response.data.status == 'error' ? false : setProjects([...projects, response.data.data]);
+      response.data.status 
+        ? setAlertData({messages: 'Проект '+response.data.data.name+' успешно добавлен или отредактирован.', color: 'success', show: true})
+        : setAlertData({messages: response.data.message, color: 'danger', show: true});
+      fetchProjects();
       console.dir(response);
     }).catch(response => {
       console.dir(response);
+      setAlertData({messages: response.data, color: 'danger', show: true});
     })
   }
   function skillLevelSubmit(event){
@@ -108,22 +131,36 @@ function Admin() {
         'Content-Type' : 'multipart/form-data'
       }
     }).then(response => {
-      const success = response.data.status == 'error' ? false : setSkillLevels([...skillLevels, response.data.data]);
-      console.dir(response);
+      response.data.status 
+        ? setAlertData({messages: 'Уровень навыка '+response.data.data.name+' успешно добавлен или отредактирован.', color: 'success', show: true})
+        : setAlertData({messages: response.data.message, color: 'danger', show: true});
+      fetchSkillLevels();
     }).catch(response => {
       console.dir(response);
+      setAlertData({messages: response.data, color: 'danger', show: true});
     })
   }
+  const sticky = true;
   return (
     <div className='admin mb-4'>
-        {alertData?.show ? <Alert callback={false} sticky={true} messages={alertData.messages} color={alertData.color}/> : ''}
+        {alertData?.show 
+          ? <Alert alertData={alertData} setAlertData={setAlertData} sticky={true} messages={alertData.messages} color={alertData.color}/> 
+          : ''}
         <h1>CV Admin</h1>
         <div className='skill_add_form mb-3'>
           <h2>Skill add</h2>
+          {skills.map((skill)=>
+              <div key={skill.id}>
+                <div className='d-flex' key={skill.id}>
+                  <span key={skill.index} className='mr-auto'>{skill.name}</span>
+                  <span key={skill.id + skill.index} onClick={()=>{removeHandler(['/skills/remove/'+skill.id, fetchSkills])}} title="Удалить" className='remove-btn px-3'>x</span>
+                </div>
+                <hr className='my-0'/>
+              </div>
+            )}
           <form onSubmit={skillSubmit} method='POST' encType='multipart/form-data'>
             <input required className='form-control my-2' type='text' name='name' placeholder='name'/>
             <input required className='form-control my-2' type='text' name='label' placeholder='label'/>
-
             <OptionSelect items={skillLevels} title={'level-id'}/>
             <CheckboxList items={projects} title={'project-collection'}/>
             <textarea className='form-control my-2' type='text' name='description' placeholder='description'></textarea>
@@ -134,6 +171,15 @@ function Admin() {
         </div>
         <div className='project_add_form mb-3'>
           <h2>Project add</h2>
+          {projects.map((project)=>
+              <div key={project.id}>
+                <div className='d-flex' key={project.id}>
+                  <span key={project.index} className='mr-auto'>{project.name}</span>
+                  <span key={project.id + project.index} onClick={()=>{removeHandler(['/projects/remove/'+project.id, fetchSkills])}} title="Удалить" className='remove-btn px-3'>x</span>
+                </div>
+                <hr className='my-0'/>
+              </div>
+            )}
           <form onSubmit={projectSubmit} method='POST' encType='multipart/form-data'>
             <input required className='form-control my-2' type='text' name='name' placeholder='name'/>
             <CheckboxList items={skills} title={'skill-collection'}/>
@@ -150,9 +196,15 @@ function Admin() {
         <div className='skill_level_add_form mb-3'>
           <h2>Skill Level add</h2>
           <div className='levels-list'>
-            {skillLevels.map((skillLevel)=>{
-              return (<div key={skillLevel.id}>{skillLevel.name}</div>)
-            })}
+          {skillLevels.map((skillLevel)=>
+              <div key={skillLevel.id}>
+                <div className='d-flex' key={skillLevel.id}>
+                  <span key={skillLevel.index} className='mr-auto'>{skillLevel.name}</span>
+                  <span key={skillLevel.id + skillLevel.index} onClick={()=>{removeHandler(['/skills/levels/remove/'+skillLevel.id, fetchSkillLevels])}} title="Удалить" className='remove-btn px-3'>x</span>
+                </div>
+                <hr className='my-0'/>
+              </div>
+            )}
           </div>
           <form onSubmit={skillLevelSubmit} method='POST' encType='multipart/form-data'>
             <input required className='form-control my-2' type='text' name='name' placeholder='name'/>
@@ -163,10 +215,15 @@ function Admin() {
         </div>
         <div className='link_add_form mb-3'>
           <h2>Link add</h2>
-          {JSON.stringify(alertData)}
-          {alertData?.show ? <Alert show={alertData.show} callback={false} sticky={true} messages={alertData.messages} color={alertData.color}/> : ''}
           <div className='link-list'>
-            {links.map((link)=><div key={link.id}>{link.link+' | '+link.name+' | '+link.project.name}<hr className='my-0'/></div>
+            {links.map((link)=>
+              <div key={link.id}>
+                <div className='d-flex' key={link.id}>
+                  <span key={link.index} className='mr-auto'>{link.link+' | '+link.name+' | '+link.project?.name}</span>
+                  <span key={link.id + link.index} onClick={()=>{removeHandler(['/links/remove/'+link.id, fetchLinks])}} title="Удалить" className='remove-btn px-3'>x</span>
+                </div>
+                <hr className='my-0'/>
+              </div>
             )}
           </div>
           <form onSubmit={linkSubmit} method='POST' encType='multipart/form-data'>
@@ -180,7 +237,15 @@ function Admin() {
         <div className='link_type_add_form mb-3'>
           <h2>LinkType add</h2>
           <div className='linktypes-list'>
-            {linkTypes.map((linktype)=><div key={linktype.id}>{linktype.name}</div>)}
+            {linkTypes.map((linktype, index)=>
+              <div>
+                <div className='d-flex' key={linktype.id}>
+                  <span key={linktype.index} className='mr-auto'>{linktype.name}</span>
+                  <span key={linktype.id + linktype.index} onClick={()=>{removeHandler(['/linktypes/remove/'+linktype.id, fetchLinkTypes])}} title="Удалить" className='remove-btn px-3'>x</span>
+                </div>
+                <hr className='my-0'/>
+              </div>
+            )}
           </div>
           <form onSubmit={linkTypeSubmit} method='POST' encType='multipart/form-data'>
             <input required className='form-control my-2' type='text' name='name' placeholder='name'/>
