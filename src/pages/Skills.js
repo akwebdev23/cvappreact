@@ -26,7 +26,7 @@ function Skills() {
   }, [fetchedCards]);
   return (
     <div className="skills">
-        <h1 className='mb-0 mb-sm-2'>Skills</h1>
+        <h1 className='mb-1 mb-sm-2'>Skills</h1>
         {loading 
           ? <LoadingSpinner />
           : <CardsList title={'SkillsList'} classTitle={'skill'} cards={cards}/>}

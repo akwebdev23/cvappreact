@@ -30,7 +30,7 @@ function Project() {
   },[isLoading]);
   return (
     <div className="project">
-        <h1 className='mb-0 mb-sm-2'>Project</h1>
+        <h1 className='mb-1 mb-sm-2'>Project</h1>
         {loading 
           ? <LoadingSpinner />
           : <Card card={project} classTitle={'project'} open={true}/>}
