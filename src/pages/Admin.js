@@ -175,7 +175,7 @@ function Admin() {
               <div key={project.id}>
                 <div className='d-flex' key={project.id}>
                   <span key={project.index} className='mr-auto'>{project.name}</span>
-                  <span key={project.id + project.index} onClick={()=>{removeHandler(['/projects/remove/'+project.id, fetchSkills])}} title="Удалить" className='remove-btn px-3'>x</span>
+                  <span key={project.id + project.index} onClick={()=>{removeHandler(['/projects/remove/'+project.id, fetchProjects])}} title="Удалить" className='remove-btn px-3'>x</span>
                 </div>
                 <hr className='my-0'/>
               </div>
