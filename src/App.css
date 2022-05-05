@@ -1,8 +1,10 @@
-.skill-icon img,
+footer{
+    position: absolute;
+    bottom: 0;
+}
 .project-icon img{
     max-height: 80px;
 }
-
 .footer-card-icon img{
     max-height: 45px;
     padding: 0 10px;

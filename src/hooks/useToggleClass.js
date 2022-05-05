@@ -2,8 +2,7 @@ import { useState } from 'react';
 
 export const useToggleClass = (className, actionClasses,  stoplistClasses, defState) => {
     const [toggleClass, setToggleClass] = useState(defState ? className : '');
-    const openCloseHandler = (event) => {
-        console.dir('asd');
+    const openCloseHandler = (event, onlyClose) => {
         let action = true;
         if(stoplistClasses){
             stoplistClasses.forEach(element => {
@@ -19,9 +18,12 @@ export const useToggleClass = (className, actionClasses,  stoplistClasses, defSt
                     action = true;
             });
         }
+
         if(action)
             !toggleClass ? setToggleClass(className) : setToggleClass('');
-            
+        if(onlyClose)
+            setToggleClass('');
+
         console.dir(toggleClass);
         console.dir(className);
         console.dir(action);

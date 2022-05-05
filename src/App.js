@@ -15,7 +15,12 @@ function App() {
   const [mobile, setMobile] = useState(false);
   const [user, setUser] = useState({});
   const [navToggleClass,  navOpenCloseHandler] = useToggleClass('open');
+  
   const [authToggleClass,  authOpenCloseHandler] = useToggleClass('open-auth');
+  const closeHandler = (event) =>{
+    console.dir(event);
+    navOpenCloseHandler(event, true);
+  }
 
   const userData = useAuthUser();
   const unexpectedAlertData = {
@@ -41,12 +46,17 @@ function App() {
   return (
     <BrowserRouter>
       <AppContext.Provider value={[{user, setUser}, {unexpectedAlertData}, mobile ?  LoadingSpinnerCircle : LoadingSpinner]}>
-        <header className={mobile ? "header "+"mobile":"header"}>
-          <Navbar user={{auth : true}} mobile={mobile} nav={[navToggleClass, navOpenCloseHandler]} auth={[authToggleClass, authOpenCloseHandler]}/>
-        </header>
-        <main className={mobile ? "main-content container mobile":"main-content container px-0"}>
-          <AppRouter />
-        </main>
+        <div className="d-flex flex-column align-items-center">
+          <header className={mobile ? "header "+"mobile":"header"}>
+            <Navbar user={{auth : true}} mobile={mobile} nav={[navToggleClass, navOpenCloseHandler]} auth={[authToggleClass, authOpenCloseHandler]}/>
+          </header>
+          <main onClick={closeHandler} className={mobile ? "main-content container flex-shrink mobile":"main-content container px-0"}>
+            <AppRouter />
+          </main>
+          <footer className="mt-auto container px-0">
+            <div className="d-flex"><span className="mx-auto">akwb &#169; 2022</span></div>
+          </footer>
+        </div>
       </AppContext.Provider>
     </BrowserRouter>
   );

@@ -31,7 +31,7 @@ function Card({title, classTitle, card, open}) {
 							<img alt={card.name+'_icon'} src={API_UPLOAD+card.icon} className='img-fluid'/>
 						</div>
 					</div>
-					<div className="card-body-text_content col-12 py-2 px-2 px-sm-3 pt-0 pt-sm-2 pl-sm-0">
+					<div className="card-body-text_content col-12 py-2 px-2 px-sm-3 pt-1 pt-sm-2 pl-sm-0">
 						<p className="card-text">
 							{card.description}
 						</p>
