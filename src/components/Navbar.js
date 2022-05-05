@@ -69,7 +69,7 @@ function Navbar({mobile, nav: [navToggleClass, navOpenCloseHandler], auth: [auth
                         </NavLink>
                     </li>
                 </ul>
-                <div className={user.auth ? "mr-4 auth ml-auto" : "auth ml-auto"}>
+                <div className={user.auth ? "mr-4 auth mx-auto ml-sm-auto" : "auth mx-auto mr-sm-0 ml-sm-auto"}>
                     <AuthComponent popup={true}/>
                 </div>
                 <div className='nav-login d-flex align-items-center' onClick={authOpenCloseHandler}>

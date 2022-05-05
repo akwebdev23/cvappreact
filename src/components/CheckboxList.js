@@ -2,7 +2,6 @@
 import React from 'react';
 
 function CheckboxList(props) {
-  console.dir(props.items);
   return (
     <fieldset className='from-group mb-2'>
         <legend>{props.title}</legend>
