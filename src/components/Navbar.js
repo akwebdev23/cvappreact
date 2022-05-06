@@ -12,7 +12,7 @@ function Navbar({mobile, nav: [navToggleClass, navOpenCloseHandler], auth: [auth
     const [{user, setUser}] = useContext(AppContext);
 
     return (
-        <nav className={navToggleClass+' navbar navbar-expand-sm bg-muted '+authToggleClass}>
+        <nav onClick={mobile ? navOpenCloseHandler : ()=>false} className={navToggleClass+' navbar navbar-expand-sm bg-muted '+authToggleClass}>
             <div className='navbar-box px-0 container d-sm-flex'>
                 {mobile ? 
                     <div onClick={mobile ? navOpenCloseHandler : ()=>false} className='nav-burger-menu'>
@@ -21,55 +21,59 @@ function Navbar({mobile, nav: [navToggleClass, navOpenCloseHandler], auth: [auth
                     :''
                 }
                 <ul className={
-                        `navbar-nav pt-3 pt-sm-0 col-12 col-sm-8 px-0
+                        `navbar-nav pt-3 pt-sm-0 col-12 col-sm-6 px-0
                         d-flex flex-sm-row flex-column 
-                        justify-content-between align-items-center`}>
-                    <li className="nav-item">
+                        justify-content-md-between align-items-center`}>
                         <NavLink 
                             className={({isActive})=>
                                 (isActive 
-                                    ? "nav-link text-primary-trans" 
-                                    : "nav-link")+" hover-primary-trans"}
+                                    ? ("nav-link text-primary-trans " + (navToggleClass ? "" : "nav-link-active-order")) 
+                                    : "nav-link")
+                                +" hover-primary-trans pl-0"}
                             to="/"
                         >
-                            Main
+                            <li className="nav-item mr-sm-3 mr-md-0">
+                                Main
+                            </li>
                         </NavLink>
-                    </li>
-                    <li className="nav-item">
+                    
                         <NavLink 
                             className={({isActive})=>
                                 (isActive 
-                                    ? "nav-link text-info" 
-                                    : "nav-link")+" hover-info"}
+                                    ? ("nav-link text-info "+ (navToggleClass ? "" : "nav-link-active-order")) 
+                                    : "nav-link")+" hover-info pl-0"}
                             to="/skills"
                         >
-                            Skills
+                            <li className="nav-item mr-sm-3 mr-md-0">  
+                                Skills
+                            </li>
                         </NavLink>
-                    </li>
-                    <li className="nav-item">
+                    
                         <NavLink 
                             className={({isActive})=>
                                 (isActive 
-                                    ? "nav-link text-success" 
-                                    : "nav-link")+" hover-success"}
+                                    ? ("nav-link text-success "+ (navToggleClass ? "" : "nav-link-active-order"))
+                                    : "nav-link")+" hover-success pl-0"}
                             to="/experience"
                         >
-                            Experience
+                            <li className="nav-item mr-sm-3 mr-md-0">   
+                                Experience
+                            </li>
                         </NavLink>
-                    </li>
-                    <li className="nav-item">
                         <NavLink 
                             className={({isActive})=>
                                 (isActive 
-                                    ? "nav-link text-primary" 
-                                    : "nav-link")+" hover-primary"}
+                                    ? ("nav-link text-primary "+ (navToggleClass ? "" : "nav-link-active-order")) 
+                                    : "nav-link")+" hover-primary pl-0"}
                             to="/contacts"
                         >
-                            Contacts
+                            <li className="nav-item mr-sm-3 mr-md-0">   
+                                Contacts
+                            </li>
                         </NavLink>
-                    </li>
+                    
                 </ul>
-                <div className={user.auth ? "mr-4 auth mx-auto ml-sm-auto" : "auth mx-auto mr-sm-0 ml-sm-auto"}>
+                <div className={user.auth ? "mr-4 auth mx-auto ml-sm-auto col-sm-5 col-md-6" : "auth mx-auto mr-sm-0 ml-sm-auto col-sm-6 col-md-4"}>
                     <AuthComponent popup={true}/>
                 </div>
                 <div className='nav-login d-flex align-items-center' onClick={authOpenCloseHandler}>
