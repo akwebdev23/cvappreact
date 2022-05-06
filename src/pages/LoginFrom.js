@@ -58,6 +58,29 @@ function LoginForm({popup}) {
       setCheckingAuth(false);
     })
   }
+  const registrationSubmit = (event) => {
+    event.preventDefault();
+    console.dir(userData);
+    console.dir(alertData);
+    userData.name = userData.email;
+    UserService.registerPromise(REGISTRATION_ROUTE, userData)
+    .then(response => {
+      console.dir('response');
+      console.dir(response);
+      if(response.data.status === 'validation_fail'){
+        setAlertData({messages: response.data.messages, color: 'warning', show: true});
+        return;
+      } else if(response.data.status === 'ok'){
+        setUserData({});
+        setAlertData({messages: response.data.messages, color: 'success', show: true});
+      }
+    })
+    .catch(error => {
+        console.dir('catch');
+        console.dir(error);
+        setAlertData(unexpectedAlertData);
+    })
+  }
   if(checkingAuth)
     return (<div className='d-flex justify-content-center mr-sm-4'><LoadingSpinnerCircle/></div>);
   else
@@ -70,9 +93,9 @@ function LoginForm({popup}) {
             <input onChange={onChangeHandler} value={userData.password ? userData.password : ''} className='p-1 px-2 form-control my-2' placeholder='Введите пароль' type="password" name="password" required/>
             <div className='d-flex justify-content-center justify-content-sm-end'>
               <input className={'btn btn-outline-light px-2 mr-1 '+ (popup ? 'btn-sm' : '') } value="Войти" type="submit" name="submit" required/>
-              <Link to={'/registration'} className={'btn btn-outline-light px-2 '+ (popup ? 'btn-sm mr-sm-auto' : 'mr-auto') }>
+              <div onClick={registrationSubmit} className={'btn btn-outline-light px-2 '+ (popup ? 'btn-sm mr-sm-auto' : 'mr-auto') }>
                 Регистрация
-              </Link>
+              </div>
             </div>
           </form>
         </div>
