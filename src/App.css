@@ -71,7 +71,7 @@ footer{
     transition: background-color 1s ease-out;
 }
 .navbar-nav{
-    min-height: 30px;
+    min-height: 40px;
     opacity: 1;
     transition: max-height 0.4s ease-out, padding 0.7s ease-out;
 }
@@ -90,7 +90,6 @@ footer{
 .open-auth .navbar-nav{
     padding-top: 0 !important;
     padding-bottom: 0px !important;
-    flex-direction: column !important;
     align-items: flex-start !important;
 }
 .mobile .navbar-nav{
@@ -103,6 +102,7 @@ footer{
 .open .navbar-nav{
     padding-top: 0 !important;
     padding-bottom: 10px !important;
+    align-items: center !important;
 }
 .open-auth .nav-logout-popup .logout-form .btn{
     opacity: 1;
@@ -128,9 +128,12 @@ footer{
 }
 .nav-login{
     position: absolute;
-    bottom: 0px;
+    bottom: 2px;
     right: 0px;
     cursor: pointer;
+}
+.mobile .nav-login{
+    bottom: 0.5px;
 }
 .mobile .nav-login{
     right: 6px;
@@ -143,7 +146,7 @@ footer{
 .nav-login-user_name{
     opacity: 1;
     transition: opacity 1s ease-out;
-    margin-bottom: 2.6px;
+    margin-bottom: 7px;
 }
 .nav-login-popup, 
 .nav-logout-popup{

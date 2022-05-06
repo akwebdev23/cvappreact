@@ -22,7 +22,7 @@ function Navbar({mobile, nav: [navToggleClass, navOpenCloseHandler], auth: [auth
                 }
                 <ul className={
                         `navbar-nav pt-3 pt-sm-0 col-12 col-sm-6 px-0
-                        d-flex flex-sm-row flex-column 
+                        d-flex flex-md-row flex-column 
                         justify-content-md-between align-items-center`}>
                         <NavLink 
                             className={({isActive})=>
@@ -73,7 +73,7 @@ function Navbar({mobile, nav: [navToggleClass, navOpenCloseHandler], auth: [auth
                         </NavLink>
                     
                 </ul>
-                <div className={user.auth ? "mr-4 auth mx-auto ml-sm-auto col-sm-5 col-md-6" : "auth mx-auto mr-sm-0 ml-sm-auto col-sm-6 col-md-4"}>
+                <div className={user.auth ? "mr-4 auth mx-auto ml-sm-auto mr-sm-0 col-sm-5 col-md-4 col-lg-3 align-self-sm-end align-self-md-center" : "auth mx-auto mr-sm-0 ml-sm-auto col-sm-6 col-md-4"}>
                     <AuthComponent popup={true}/>
                 </div>
                 <div className='nav-login d-flex align-items-center' onClick={authOpenCloseHandler}>
