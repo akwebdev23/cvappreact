@@ -14,12 +14,15 @@ import LoadingSpinnerCircle from "./components/assets/loadingspinnerCircle/Loadi
 function App() {
   const [mobile, setMobile] = useState(false);
   const [user, setUser] = useState({});
-  const [navToggleClass,  navOpenCloseHandler] = useToggleClass('open');
+  const [navToggleClass,  navOpenCloseHandler] = useToggleClass('open', 
+    ['navbar'], 
+    ['nav-login', 'nav-burger-menu', 'btn', 'input', 'alert-close', 'alert-box', 'alert']);
   
   const [authToggleClass,  authOpenCloseHandler] = useToggleClass('open-auth');
   const closeHandler = (event) =>{
     console.dir(event);
     navOpenCloseHandler(event, true);
+    authOpenCloseHandler(event, true);
   }
 
   const userData = useAuthUser();
@@ -53,8 +56,8 @@ function App() {
           <main onClick={closeHandler} className={mobile ? "main-content container flex-shrink mobile":"main-content container px-0"}>
             <AppRouter />
           </main>
-          <footer className="mt-auto container px-0">
-            <div className="d-flex"><span className="mx-auto">akwb &#169; 2022</span></div>
+          <footer className="mt-auto container d-flex px-0">
+            <div className="d-flex justify-content-center align-items-end mx-auto"><span className="mx-auto">akwb &#169; 2022</span></div>
           </footer>
         </div>
       </AppContext.Provider>

@@ -1,6 +1,8 @@
+main{
+    min-height: calc(100vh - 50px);
+}
 footer{
-    position: absolute;
-    bottom: 0;
+    height: 40px;
 }
 .registration{
     height: 600px;
@@ -32,7 +34,7 @@ footer{
     transition: max-height 0.2s ease-out;
 }
 .card-body.open{
-    max-height: 1000px;
+    max-height: 10000px;
     transition: max-height 0.3s ease-in;
 }
 .card-header{
@@ -69,26 +71,35 @@ footer{
     transition: background-color 1s ease-out;
 }
 .navbar-nav{
-    max-height: 30px;
-    overflow: hidden;
+    min-height: 30px;
     opacity: 1;
     transition: max-height 0.4s ease-out, padding 0.7s ease-out;
 }
 .mobile .navbar-nav{
     max-height: 0px;
+    overflow: hidden;
 }
 .open .navbar-nav{
     max-height: 1000px;
     overflow: hidden;
     opacity: 1;
-    transition: max-height 0.5s ease-in, padding 0.7s ease-out;
+    transition: max-height 0.5s ease-in, padding 0.7s ease-out, justify-content 2s ease-in;
     padding-top: 0 !important;
     padding-bottom: 10px !important;
 }
 .open-auth .navbar-nav{
     padding-top: 0 !important;
     padding-bottom: 0px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
 }
+.mobile .navbar-nav{
+    padding-top: 0 !important;
+    padding-bottom: 0px !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
 .open .navbar-nav{
     padding-top: 0 !important;
     padding-bottom: 10px !important;
@@ -97,6 +108,9 @@ footer{
     opacity: 1;
     z-index: 100;
     transition: opacity 0.7s linear;
+}
+.mobile .navbar-nav .nav-link-active-order{
+    order: -1;
 }
 .nav-logout-popup .logout-form .btn{
     opacity: 0;
@@ -115,8 +129,11 @@ footer{
 .nav-login{
     position: absolute;
     bottom: 0px;
-    right: 6px;
+    right: 0px;
     cursor: pointer;
+}
+.mobile .nav-login{
+    right: 6px;
 }
 .open-auth .nav-login-user_name{
     transition: opacity 0.3s ease-in;
@@ -189,6 +206,9 @@ footer{
 
 .alert-box{
     position: relative;
+    margin-right: auto;
+    margin-left: auto;
+
 }
 .alert-box .alert-close{
     position: absolute;
@@ -203,4 +223,8 @@ footer{
 
 .remove-btn{
     cursor: pointer;
+}
+
+.contact-icons img{
+    height: 35px;
 }
