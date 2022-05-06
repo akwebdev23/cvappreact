@@ -28,10 +28,10 @@ function Projects() {
   
   return (
     <div className="projects">
-        <h1 className='mb-0 mb-sm-2'>Experience</h1>
+        <h1 className='mb-0 mb-sm-2'>Проекты</h1>
         {loading 
           ? <LoadingSpinner />
-          : <CardsList title={'Projects'} classTitle={'project'} cards={cards}/>}
+          : <CardsList label={'Experience'} title={'Projects'} classTitle={'project'} cards={cards}/>}
     </div>
   );
 }

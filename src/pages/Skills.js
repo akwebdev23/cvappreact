@@ -26,10 +26,10 @@ function Skills() {
   }, [fetchedCards]);
   return (
     <div className="skills">
-        <h1 className='mb-1 mb-sm-2'>Skills</h1>
+        <h1 className='mb-1 mb-sm-2'>Навыки</h1>
         {loading 
           ? <LoadingSpinner />
-          : <CardsList title={'SkillsList'} classTitle={'skill'} cards={cards}/>}
+          : <CardsList label={'SkillsList'} title={'SkillsList'} classTitle={'skill'} cards={cards}/>}
     </div>
   );
 }
