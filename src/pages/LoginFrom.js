@@ -89,9 +89,9 @@ function LoginForm({popup}) {
         {alertData?.show ? <Alert alertData={alertData} setAlertData={setAlertData} messages={alertData.messages} color={alertData.color}/>:''}
         <div className='login-form_box'>
           <form onSubmit={loginSubmit} method='POST' className='login-form'>
-            <input onChange={onChangeHandler} value={userData.email ? userData.email : ''} className='p-1 px-2 form-control my-2' placeholder='Введите email' type="text" name="email" required/>
+            <input onChange={onChangeHandler} value={userData.email ? userData.email : ''} className='p-1 px-2 form-control my-2' placeholder='Введите email' type="email" name="email" required/>
             <input onChange={onChangeHandler} value={userData.password ? userData.password : ''} className='p-1 px-2 form-control my-2' placeholder='Введите пароль' type="password" name="password" required/>
-            <div className='d-flex justify-content-center justify-content-sm-end'>
+            <div className='d-flex justify-content-center justify-content-sm-end '>
               <input className={'btn btn-outline-light px-2 mr-1 '+ (popup ? 'btn-sm' : '') } value="Войти" type="submit" name="submit" required/>
               <div onClick={registrationSubmit} className={'btn btn-outline-light px-2 '+ (popup ? 'btn-sm mr-sm-auto' : 'mr-auto') }>
                 Регистрация
