@@ -2,10 +2,10 @@
 import React from 'react';
 import Card from './Card';
 
-function CardsList({title, classTitle, cards}) {
+function CardsList({title, classTitle, cards, label}) {
   return (
     <div>
-      <h2 className="text-info d-flex justify-content-end mb-1 mb-sm-2">{title}</h2>
+      <h2 className="text-info d-flex justify-content-end mb-1 mb-sm-2">{label}</h2>
       <div className='cards-list'>
         {cards?.length 
           ? cards.map(({card, Component}) => <Component title={title} classTitle={classTitle} key={card.id} card={card} open={false}/>) 
