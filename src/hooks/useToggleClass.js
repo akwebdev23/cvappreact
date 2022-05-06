@@ -11,6 +11,11 @@ export const useToggleClass = (className, actionClasses,  stoplistClasses, defSt
                     action = false;
             });
         }
+        console.dir('useToggleClass');
+        console.dir('actionClasses');
+        console.dir(actionClasses);
+        console.dir(event.target);
+
         if(actionClasses){
             actionClasses.forEach(element => {
                 if(event.target.classList.contains(element) 
