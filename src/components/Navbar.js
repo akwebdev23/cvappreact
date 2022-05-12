@@ -74,10 +74,10 @@ function Navbar({mobile, nav: [navToggleClass, navOpenCloseHandler], auth: [auth
                     
                 </ul>
                 <div className={user.auth ? "mr-4 auth mx-auto ml-sm-auto mr-sm-0 col-sm-5 col-md-4 col-lg-3 align-self-sm-end align-self-md-center" : "auth mx-auto mr-sm-0 ml-sm-auto col-sm-6 col-md-4"}>
+                    <span className={'nav-login-user_name'}>{user?.name}</span>
                     <AuthComponent popup={true}/>
                 </div>
                 <div className='nav-login d-flex align-items-center' onClick={authOpenCloseHandler}>
-                    <span className='nav-login-user_name pr-4 '>{user?.name}</span>
                     <img className='nav-login' src={'/icons/login.png'}/>
                 </div>
             </div>
