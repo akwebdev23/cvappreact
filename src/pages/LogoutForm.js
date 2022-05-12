@@ -28,7 +28,7 @@ function LogoutForm() {
           <NavLink to={'/admin'}>
             <div className='btn btn-sm btn-outline-light mr-sm-1 mr-1'>Админ панель</div>
           </NavLink>
-          <button onClick={logoutHandler} className='btn btn-sm btn-outline-light mr-sm-auto'>Выйти</button>
+          <button onClick={logoutHandler} className='btn btn-sm btn-outline-light'>Выйти</button>
         </div>
       </div>
     )

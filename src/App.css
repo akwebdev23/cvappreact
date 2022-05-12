@@ -142,6 +142,7 @@ footer{
     z-index: -100;
     opacity: 0;
     position: absolute;
+    text-align: right;
 }
 .open-auth .nav-login-user_name{
     opacity: 1;

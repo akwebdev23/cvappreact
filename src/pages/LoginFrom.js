@@ -63,6 +63,10 @@ function LoginForm({popup}) {
     console.dir(userData);
     console.dir(alertData);
     userData.name = userData.email;
+    if(!userData.email || !userData.password){
+      setAlertData({messages: 'Не введены логин или пароль!', color: 'warning', show: true});
+      return;
+    }
     UserService.registerPromise(REGISTRATION_ROUTE, userData)
     .then(response => {
       console.dir('response');
