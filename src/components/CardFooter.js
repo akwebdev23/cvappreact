@@ -12,7 +12,7 @@ function CardFooter({title, classTitle, card}) {
     if(classTitle == 'skill'){
         return (
             <div className='card-footer px-2 px-sm-2'>
-                <h5 className="card-title mb-0">Связанные проекты</h5>
+                <h5 className="card-title mb-1">Связанные проекты</h5>
                 <div className='d-flex'>
                     {card?.projects.map(
                         (project) =>
