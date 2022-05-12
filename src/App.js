@@ -50,7 +50,7 @@ function App() {
     <BrowserRouter>
       <AppContext.Provider value={[{user, setUser}, {unexpectedAlertData}, mobile ?  LoadingSpinnerCircle : LoadingSpinner]}>
         <div className="d-flex flex-column align-items-center">
-          <header className={mobile ? "header "+"mobile":"header"}>
+          <header className={mobile ? "header mobile":"header"}>
             <Navbar user={{auth : true}} mobile={mobile} nav={[navToggleClass, navOpenCloseHandler]} auth={[authToggleClass, authOpenCloseHandler]}/>
           </header>
           <main onClick={closeHandler} className={mobile ? "main-content container flex-shrink mobile":"main-content container px-0"}>
