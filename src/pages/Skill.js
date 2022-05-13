@@ -18,6 +18,15 @@ function Skill() {
       status ? setSkill(data) : setSkill({});
     }
   )
+  const [levels, setLevels] = useState([]);
+  async function fetchLevels(){
+    const [data, status] = await EntityDataService.get('/skills/levels/all');
+    console.dir(data);
+    const success = status ? setLevels(data): setLevels([]);
+  }
+  useEffect(()=>{
+    fetchLevels();
+  },[]);
   useEffect(()=>{
     fetchHandler();
 
@@ -33,7 +42,7 @@ function Skill() {
         <h1 className='mb-1 mb-sm-2'>Skill</h1>
         {loading 
           ? <LoadingSpinner />
-          : <Card title={'Skill'} classTitle={'skill'} card={skill} open={true}/>}
+          : <Card levels={levels} title={'Skill'} classTitle={'skill'} card={skill} open={true}/>}
         
     </div>
   );
