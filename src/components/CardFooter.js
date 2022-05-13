@@ -29,11 +29,11 @@ function CardFooter({title, classTitle, card}) {
         return (
             <div className='card-footer px-2 px-sm-3'>
                 <h5 className="card-title">Стек технологий</h5>
-                <div className='d-flex'>
+                <div className='d-flex flex-wrap'>
                     {card?.skills.map(
                         (skill) => 
-                            <NavLink key={skill.id} to={SKILLS_ROUTE+'/'+skill.id}>
-                                <div className='footer-card-icon' key={skill.id}>
+                            <NavLink title={skill.label} key={skill.id} to={SKILLS_ROUTE+'/'+skill.id}>
+                                <div className='footer-card-icon py-1' key={skill.id}>
                                     <img key={skill.id} className='img-fluid' src={API_UPLOAD+skill.icon} title={skill.name}/>
                                 </div>
                             </NavLink>
