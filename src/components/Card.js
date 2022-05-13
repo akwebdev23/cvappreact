@@ -7,7 +7,7 @@ import CardFooter from './CardFooter';
 import { useToggleClass } from '../hooks/useToggleClass';
 import LinksList from './LinksList';
 
-function Card({title, classTitle, card, open}) {
+function Card({title, classTitle, card, open, levels}) {
 	const [toggleClass, openCloseHandler] = useToggleClass('open', ['card-header', 'card-open-state'], ['card-body', 'card-footer'], open );
 	return (
 		<div className={classTitle+'-card'}>
@@ -23,7 +23,7 @@ function Card({title, classTitle, card, open}) {
 								+ '  -  '
 								+ (card.end ? card?.end?.split('-')[1]+'.'+card?.end?.split('-')[0] : '...now')}
 						</div>
-						: <Level ownLevel={card?.level}/>}
+						: <Level levels={levels} ownLevel={card?.level}/>}
 				</div>
 				<div className={'card-body d-flex flex-column align-items-center p-0 '+toggleClass}>
 					<div className='card-image_content col-12 px-3 pt-2'>
